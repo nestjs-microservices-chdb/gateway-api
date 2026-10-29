@@ -1,24 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { ProductsController } from './products.controller.js';
 
-import { envs, PRODUCT_SERVICE } from '../config/index.js';
+import { NastModule } from '../transports/nast.module.js';
 
 @Module({
   controllers: [ProductsController],
   providers: [],
-  imports: [
-    ClientsModule.register([
-      {
-        name: PRODUCT_SERVICE,
-        transport: Transport.TCP,
-        options: {
-          host: envs.productMicroserviceHost,
-          port: envs.productMicroservicePort
-        }
-      },
-    ]),
-  ]
+  imports: [NastModule]
 })
 export class ProductsModule { }

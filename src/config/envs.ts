@@ -7,9 +7,14 @@ const envSchema = z.object({
   PRODUCT_MICROSERVICE_PORT: z.coerce.number(),
   ORDER_MICROSERVICE_HOST: z.string(),
   ORDER_MICROSERVICE_PORT: z.coerce.number(),
+
+  NATS_SERVERS: z.array(z.string())
 });
 
-const validSchema = envSchema.safeParse(process.env);
+const validSchema = envSchema.safeParse({
+  ...process.env,
+  NATS_SERVERS: process.env.NATS_SERVERS?.split(',')
+});
 
 if (!validSchema.success) {
   console.error('Invalid environment variables: ', validSchema.error.issues);
@@ -21,5 +26,6 @@ export const envs = {
   productMicroserviceHost: validSchema.data.PRODUCT_MICROSERVICE_HOST,
   productMicroservicePort: validSchema.data.PRODUCT_MICROSERVICE_PORT,
   orderMicroserviceHost: validSchema.data.ORDER_MICROSERVICE_HOST,
-  orderMicroservicePort: validSchema.data.ORDER_MICROSERVICE_PORT
+  orderMicroservicePort: validSchema.data.ORDER_MICROSERVICE_PORT,
+  natsServers: validSchema.data.NATS_SERVERS
 }
