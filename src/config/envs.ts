@@ -3,11 +3,6 @@ import * as z from 'zod';
 
 const envSchema = z.object({
   PORT: z.coerce.number(),
-  PRODUCT_MICROSERVICE_HOST: z.string(),
-  PRODUCT_MICROSERVICE_PORT: z.coerce.number(),
-  ORDER_MICROSERVICE_HOST: z.string(),
-  ORDER_MICROSERVICE_PORT: z.coerce.number(),
-
   NATS_SERVERS: z.array(z.string())
 });
 
@@ -23,9 +18,5 @@ if (!validSchema.success) {
 
 export const envs = {
   port: validSchema.data.PORT,
-  productMicroserviceHost: validSchema.data.PRODUCT_MICROSERVICE_HOST,
-  productMicroservicePort: validSchema.data.PRODUCT_MICROSERVICE_PORT,
-  orderMicroserviceHost: validSchema.data.ORDER_MICROSERVICE_HOST,
-  orderMicroservicePort: validSchema.data.ORDER_MICROSERVICE_PORT,
   natsServers: validSchema.data.NATS_SERVERS
 }
