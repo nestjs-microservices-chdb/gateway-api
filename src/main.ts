@@ -25,6 +25,8 @@ async function bootstrap() {
 
   await app.listen(envs.port ?? 3000);
 
+  console.log(`Server running on port ${envs.port ?? 3000}!!!!`);
+
   logger.log(`Server running on port ${envs.port ?? 3000}`);
 }
 await bootstrap();
