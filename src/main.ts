@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module.js';
 import { RpcCustomExceptionFilter } from './common/index.js';
@@ -21,12 +21,16 @@ async function bootstrap() {
 
   app.useGlobalFilters(new RpcCustomExceptionFilter());
 
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api', {
+    exclude: [{
+      path: '',
+      method: RequestMethod.GET
+    }]
+  });
 
   await app.listen(envs.port ?? 3000);
 
-  console.log(`Server running on port ${envs.port ?? 3000} segundo cambio`);
-
   logger.log(`Server running on port ${envs.port ?? 3000}`);
+  logger.log(`Helth check working`);
 }
 await bootstrap();

@@ -3,9 +3,10 @@ import { ProductsModule } from './products/products.module.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { NastModule } from './transports/nast.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { HealthCheckModule } from './health-check/health-check.module.js';
 
 @Module({
-  imports: [ProductsModule, OrdersModule, NastModule, AuthModule],
+  imports: [ProductsModule, OrdersModule, NastModule, AuthModule, HealthCheckModule],
   controllers: [],
   providers: [],
 })
